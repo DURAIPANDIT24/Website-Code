@@ -1,44 +1,40 @@
-var pos=0,board,qus,choice,a,b,c,cor=0,ct;
-var questions=[	
-		["230-30","45","23","30","c"],
-		["200+100","300","301","302","a"],
-		["100/10","11","10","12","b"],
-		["20-10","11","12","10","c"],
-		["10+100","110","11","12","a"]
-];
-function display()
-{
-	board=document.getElementById("board");
-	if(pos>=questions.length)
-	{
-		board.innerHTML="<h2>You Got "+cor+" of "+questions.length+"</h2>"
+var index,board,qus,correct=0;
+var questions = {
+	1:{	"question":"230-30","optionA":"45","optionB":"23","optionC":"30","correctAnswer":"c" },
+	2:{	"question":"200+100","optionA":"300","optionB":"301","optionC":"302","correctAnswer":"a" },
+	3:{	"question":"100/10","optionA":"11","optionB":"10","optionC":"12","correctAnswer":"b" },
+	4:{	"question":"20-10","optionA":"11","optionB":"12","optionC":"10","correctAnswer":"c" },
+	5:{	"question":"10+100","optionA":"110","optionB":"11","optionC":"12","correctAnswer":"a" },
+}
+
+function display() {
+	board = document.getElementById("board");
+	if(pos>=questions.length) {
+		
+		board.innerHTML="<h2>You Got "+correct+" of "+questions.length+"</h2>"
 		document.getElementById("status").innerHTML="Quiz completed";
-		pos=0;
-		cor=0;
+		index=0;
+		correct=0;
 		return false;
 	}
-	document.getElementById("status").innerHTML="Questions "+(pos+1)+" of "+questions.length+" ";
-	qus=questions[pos][0];
-	a=questions[pos][1];
-	b=questions[pos][2];
-	c=questions[pos][3];
-	board.innerHTML="<h3>"+qus+"</h3>";
-	board.innerHTML+="<label> <input type='radio' name='choice' value='a'>"+a+"</label>";
-	board.innerHTML+="<label> <input type='radio' name='choice' value='b'>"+b+"</label>";
-	board.innerHTML+="<label> <input type='radio' name='choice' value='c'>"+c+"</label>";
-	board.innerHTML+="<button onclick='checka()'>submit</button>";
+	document.getElementById("status").innerHTML="Questions "+(index+1)+" of "+questions.length+" ";
+	board.innerHTML="<h3>"+question[index].question+"</h3>";
+	board.innerHTML+="<label> <input type='radio' name='choice' checked='checked' value='optionA'>"+question[index].optionA+"</label>";
+	board.innerHTML+="<label> <input type='radio' name='choice' value='optionB'>"+question[index].optionB+"</label>";
+	board.innerHTML+="<label> <input type='radio' name='choice' value='optionC'>"+question[index].optionC+"</label>";
+	board.innerHTML+="<button onclick='checkAnswer()'>submit</button>";
 }
-function checka(){
+
+function checkAnswer() {
 	choice=document.getElementsByName("choice");
-	for(var i=0;i<choice.length;i++)
-	{
-		if(choice[i].checked)
-		{
-			ct=choice[i].value;		}
+	for(var i=0;i<choice.length;i++) {
+		if(choice[i].checked) {
+			answer=choice[i].value;		
+		}
 	}
-	if (ct==questions[pos][4]) {
-		cor++;
+	if (answer == questions[index].correctAnswer) {
+		correct++;
 	}
-pos++;
+index++;
 display();
 }
