@@ -23,14 +23,12 @@ function display() {
 	board.innerHTML+="<label> <input type='radio' name='choice' value='optionB'>"+questions[index].optionB+"</label>";
 	board.innerHTML+="<label> <input type='radio' name='choice' value='optionC'>"+questions[index].optionC+"</label>";
 	board.innerHTML+="<button onclick='checkAnswer()'>submit</button>";
-
-
-
 }
-
 function checkAnswer() {
+	
 	choice=document.getElementsByName("choice");
 	for(var j=0;j<choice.length;j++) {
+
 		if(choice[j].checked) {
 			answer=choice[j].value;		
 		}
@@ -40,5 +38,4 @@ function checkAnswer() {
 	}
 index++;
 display();
-
 }
